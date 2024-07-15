@@ -1,5 +1,6 @@
-import { GoSearch } from "react-icons/go"
+import { GoSearch, GoPlusCircle } from "react-icons/go"
 import { Input } from "./components/ui/input"
+import { Button } from "./components/ui/button"
 import {
 	Table,
 	TableHeader,
@@ -17,11 +18,16 @@ function App() {
 
 				<h1 className="text-4xl font-bold">Produtos</h1>
 
-				<div className="py-5">
-					<div className="relative">
-						<GoSearch className="absolute h-[16px] w-[16px] left-2 top-1/2 transform -translate-y-1/2 top-text-zinc-500" />
+				<div className="py-5 flex items-center gap-4">
+					<div className="relative w-2/3">
+						<GoSearch className="absolute h-[18px] w-[18px] left-2 top-1/2 transform -translate-y-1/2 top-text-zinc-500" />
 						<Input className="px-8" placeholder="Procurar por produto"/>
 					</div>
+
+					<Button className="w-1/3">
+						<GoPlusCircle className="h-[18px] w-[18px] mr-2"/>
+						Adicionar produto
+					</Button>
 				</div>
 
 				<div className="p-2 border border-zinc-300 rounded-lg">
