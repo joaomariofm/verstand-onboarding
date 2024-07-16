@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react"
 import { useDebouncedValue } from "./utils/useDebouncedValue"
+import { ProductService } from "./services/ProductService"
 import { Product } from "@/models/Product"
 import { GoSearch } from "react-icons/go"
 import { Input } from "./components/ui/input"
@@ -19,13 +20,25 @@ function App() {
 	const [products, setProducts] = useState<Product[]>([])
 	const [searchTerm, setSearchTerm] = useState<string>("")
 	const [filteredProducts, setFilteredProducts] = useState<Product[]>([])
-
 	const debouncedSearchTerm = useDebouncedValue(searchTerm, 500)
 
 	useEffect(() => {
-		const filtered = products.filter(product => product.name.toLowerCase().includes(debouncedSearchTerm.toLowerCase()))
+		ProductService.getProducts().then((response) => {
+			setProducts(response.data)
+		})
+		.catch((error) => {
+			console.error(error)
+		})
+	}, [])
+
+	useEffect(() => {
+		const filtered = filterProducts(products, debouncedSearchTerm)
 		setFilteredProducts(filtered)
 	}, [debouncedSearchTerm, products])
+
+	function filterProducts(products: Product[], searchTerm: string) {
+		return products.filter(product => product.name.toLowerCase().includes(searchTerm.toLowerCase()))
+	}
 
 	function addProduct(values: Product) {
 		setProducts(oldProducts => [...oldProducts, values])
