@@ -10,6 +10,7 @@ import {
 	TableHead,
 	TableBody,
 	TableCell,
+	TableCaption,
 } from "./components/ui/table"
 
 function App() {
@@ -35,6 +36,10 @@ function App() {
 				</div>
 				<div className="p-2 border border-zinc-300 rounded-lg">
 					<Table>
+						{ 
+							products.length === 0 &&
+								<TableCaption>Nenhum registro de produto foi feito ainda</TableCaption>
+						}
 						<TableHeader>
 							<TableRow>
 								<TableHead className="w-1/4">ID</TableHead>
@@ -45,14 +50,15 @@ function App() {
 						</TableHeader>
 						<TableBody>
 							{
-								products.map((product, i) => (
-									<TableRow key={i}>
-										<TableCell className="font-medium">83kdak2</TableCell>
-										<TableCell>{product.name}</TableCell>
-										<TableCell>R$ {product.price.toFixed(2)}</TableCell>
-										<TableCell className="text-center">{product.quantity}</TableCell>
-									</TableRow>
-								))
+								products.length !== 0 &&
+									products.map((product, i) => (
+										<TableRow key={i}>
+											<TableCell className="font-medium">83kdak2</TableCell>
+											<TableCell>{product.name}</TableCell>
+											<TableCell>R$ {product.price.toFixed(2)}</TableCell>
+											<TableCell className="text-center">{product.quantity}</TableCell>
+										</TableRow>
+									))
 							}	
 						</TableBody>
 					</Table>
