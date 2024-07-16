@@ -45,9 +45,12 @@ function App() {
 			const product = response.data
 			setProducts(oldProducts => [...oldProducts, product])
 		})
-  }
+		.catch((error) => {
+			console.error(error)
+		})
+  	}
 
-  return (
+  	return (
 		<>
 			<div className="mt-5 max-w-5xl mx-auto">
 				<h1 className="text-4xl font-bold">Produtos</h1>
