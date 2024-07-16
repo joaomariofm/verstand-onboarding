@@ -1,10 +1,9 @@
-import { GoSearch, GoPlusCircle } from "react-icons/go"
+import { GoSearch } from "react-icons/go"
 import { Input } from "./components/ui/input"
-import { Button } from "./components/ui/button"
+import { AddProductDialog } from "@/components/AddProductDialog"
 import {
 	Table,
 	TableHeader,
-	TableCaption,
 	TableRow,
 	TableHead,
 	TableBody,
@@ -15,24 +14,18 @@ function App() {
   return (
 		<>
 			<div className="mt-5 max-w-5xl mx-auto">
-
 				<h1 className="text-4xl font-bold">Produtos</h1>
-
 				<div className="py-5 flex items-center gap-4">
 					<div className="relative w-2/3">
 						<GoSearch className="absolute h-[18px] w-[18px] left-2 top-1/2 transform -translate-y-1/2 top-text-zinc-500" />
 						<Input className="px-8" placeholder="Procurar por produto"/>
 					</div>
-
-					<Button className="w-1/3">
-						<GoPlusCircle className="h-[18px] w-[18px] mr-2"/>
-						Adicionar produto
-					</Button>
+					<div className="w-1/3">
+						<AddProductDialog />	
+					</div>
 				</div>
-
 				<div className="p-2 border border-zinc-300 rounded-lg">
 					<Table>
-
 						<TableHeader>
 							<TableRow>
 								<TableHead className="w-1/4">ID</TableHead>
@@ -41,7 +34,6 @@ function App() {
 								<TableHead className="w-1/4 text-center">Quantidade</TableHead>
 							</TableRow>
 						</TableHeader>
-
 						<TableBody>
 							{
 								Array.from({ length: 10 }).map((_, i) => (
@@ -54,8 +46,6 @@ function App() {
 								))
 							}	
 						</TableBody>
-
-						<TableCaption>A list of your recent invoices.</TableCaption>
 					</Table>
 				</div>
 			</div>
