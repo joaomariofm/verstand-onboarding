@@ -40,8 +40,11 @@ function App() {
 		return products.filter(product => product.name.toLowerCase().includes(searchTerm.toLowerCase()))
 	}
 
-	function addProduct(values: Product) {
-		setProducts(oldProducts => [...oldProducts, values])
+	function addProduct(newProduct: Product) {
+		ProductService.addProduct(newProduct).then((response) => {
+			const product = response.data
+			setProducts(oldProducts => [...oldProducts, product])
+		})
   }
 
   return (
