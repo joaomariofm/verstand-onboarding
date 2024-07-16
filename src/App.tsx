@@ -18,13 +18,14 @@ function App() {
 
 	const [products, setProducts] = useState<Product[]>([])
 	const [searchTerm, setSearchTerm] = useState<string>("")
+	const [filteredProducts, setFilteredProducts] = useState<Product[]>([])
 
 	const debouncedSearchTerm = useDebouncedValue(searchTerm, 500)
 
 	useEffect(() => {
-		if (!debouncedSearchTerm) return
-		console.log(debouncedSearchTerm)
-	}, [debouncedSearchTerm])
+		const filtered = products.filter(product => product.name.toLowerCase().includes(debouncedSearchTerm.toLowerCase()))
+		setFilteredProducts(filtered)
+	}, [debouncedSearchTerm, products])
 
 
 	function addProduct(values: Product) {
@@ -52,7 +53,7 @@ function App() {
 				<div className="p-2 border border-zinc-300 rounded-lg">
 					<Table>
 						{ 
-							products.length === 0 &&
+							filteredProducts.length === 0 &&
 								<TableCaption>Nenhum registro de produto foi feito ainda</TableCaption>
 						}
 						<TableHeader>
@@ -65,8 +66,8 @@ function App() {
 						</TableHeader>
 						<TableBody>
 							{
-								products.length !== 0 &&
-									products.map((product, i) => (
+								filteredProducts.length !== 0 &&
+									filteredProducts.map((product, i) => (
 										<TableRow key={i}>
 											<TableCell className="font-medium">83kdak2</TableCell>
 											<TableCell>{product.name}</TableCell>
