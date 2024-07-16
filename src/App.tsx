@@ -1,3 +1,5 @@
+import { useState } from "react"
+import { Product } from "@/models/Product"
 import { GoSearch } from "react-icons/go"
 import { Input } from "./components/ui/input"
 import { AddProductDialog } from "@/components/AddProductDialog"
@@ -11,6 +13,13 @@ import {
 } from "./components/ui/table"
 
 function App() {
+
+	const [products, setProducts] = useState<Product[]>([])
+
+	function addProduct(values: Product) {
+		setProducts(oldProducts => [...oldProducts, values])
+  }
+
   return (
 		<>
 			<div className="mt-5 max-w-5xl mx-auto">
@@ -21,7 +30,7 @@ function App() {
 						<Input className="px-8" placeholder="Procurar por produto"/>
 					</div>
 					<div className="w-1/3">
-						<AddProductDialog />	
+						<AddProductDialog onSubmitCallback={addProduct} />	
 					</div>
 				</div>
 				<div className="p-2 border border-zinc-300 rounded-lg">
@@ -36,12 +45,12 @@ function App() {
 						</TableHeader>
 						<TableBody>
 							{
-								Array.from({ length: 10 }).map((_, i) => (
+								products.map((product, i) => (
 									<TableRow key={i}>
 										<TableCell className="font-medium">83kdak2</TableCell>
-										<TableCell>nome do produto</TableCell>
-										<TableCell>R$ 250,00</TableCell>
-										<TableCell className="text-center">58</TableCell>
+										<TableCell>{product.name}</TableCell>
+										<TableCell>R$ {product.price.toFixed(2)}</TableCell>
+										<TableCell className="text-center">{product.quantity}</TableCell>
 									</TableRow>
 								))
 							}	

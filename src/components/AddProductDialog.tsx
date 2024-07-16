@@ -1,6 +1,8 @@
 import { useForm } from "react-hook-form"
+import { useState } from "react"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { z } from "zod"
+import { Product } from "@/models/Product"
 import { GoPlusCircle } from "react-icons/go"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -21,13 +23,19 @@ import {
 	FormLabel,
 } from "@/components/ui/form"
 
+interface Props {
+	onSubmitCallback: (values: Product) => void
+}
+
 const formSchema = z.object({
 	name: z.string(),
 	price: z.string().transform(value => Number(value)||0),
 	quantity: z.string().transform(value => Number(value)||0),
 })
 
-function AddProductDialog() {
+function AddProductDialog(props: Props) {
+
+	const [isOpen, setIsOpen] = useState(false)
 
 	const form = useForm<z.infer<typeof formSchema>>({
 		resolver: zodResolver(formSchema),
@@ -38,13 +46,15 @@ function AddProductDialog() {
 		},
 	})
 
-	function onSubmit(values: z.infer<typeof formSchema>) {
-    console.log(values)
+	function onSubmit(values: Product) {
+		props.onSubmitCallback(values)
+		form.reset()
+		setIsOpen(false)
   }
 	
 	return (
 		<>
-			<Dialog>
+			<Dialog open={isOpen} onOpenChange={setIsOpen}>
 
 				<DialogTrigger className="w-full" asChild>
 					<Button>
@@ -125,4 +135,4 @@ function AddProductDialog() {
 	)
 }
 
-export { AddProductDialog }
+export { AddProductDialog, formSchema }
