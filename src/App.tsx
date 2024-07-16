@@ -1,4 +1,5 @@
-import { useState } from "react"
+import { useState, useEffect } from "react"
+import { useDebouncedValue } from "./utils/useDebouncedValue"
 import { Product } from "@/models/Product"
 import { GoSearch } from "react-icons/go"
 import { Input } from "./components/ui/input"
@@ -16,6 +17,15 @@ import {
 function App() {
 
 	const [products, setProducts] = useState<Product[]>([])
+	const [searchTerm, setSearchTerm] = useState<string>("")
+
+	const debouncedSearchTerm = useDebouncedValue(searchTerm, 500)
+
+	useEffect(() => {
+		if (!debouncedSearchTerm) return
+		console.log(debouncedSearchTerm)
+	}, [debouncedSearchTerm])
+
 
 	function addProduct(values: Product) {
 		setProducts(oldProducts => [...oldProducts, values])
@@ -28,7 +38,12 @@ function App() {
 				<div className="py-5 flex items-center gap-4">
 					<div className="relative w-2/3">
 						<GoSearch className="absolute h-[18px] w-[18px] left-2 top-1/2 transform -translate-y-1/2 top-text-zinc-500" />
-						<Input className="px-8" placeholder="Procurar por produto"/>
+						<Input
+							className="px-8"
+							placeholder="Procurar por produto"
+							value={searchTerm}
+							onChange={(e) => setSearchTerm(e.target.value)}
+						/>
 					</div>
 					<div className="w-1/3">
 						<AddProductDialog onSubmitCallback={addProduct} />	
