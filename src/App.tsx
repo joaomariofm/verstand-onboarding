@@ -27,7 +27,6 @@ function App() {
 		setFilteredProducts(filtered)
 	}, [debouncedSearchTerm, products])
 
-
 	function addProduct(values: Product) {
 		setProducts(oldProducts => [...oldProducts, values])
   }
@@ -53,8 +52,14 @@ function App() {
 				<div className="p-2 border border-zinc-300 rounded-lg">
 					<Table>
 						{ 
-							filteredProducts.length === 0 &&
-								<TableCaption>Nenhum registro de produto foi feito ainda</TableCaption>
+							filteredProducts.length === 0 && debouncedSearchTerm === ""
+							? <TableCaption>Nenhum registro de produto foi feito ainda</TableCaption>
+							: ""
+						}
+						{ 
+							filteredProducts.length === 0 && debouncedSearchTerm !== ""
+							? <TableCaption>Nenhum produto encontrado</TableCaption>
+							: ""
 						}
 						<TableHeader>
 							<TableRow>
@@ -67,14 +72,14 @@ function App() {
 						<TableBody>
 							{
 								filteredProducts.length !== 0 &&
-									filteredProducts.map((product, i) => (
-										<TableRow key={i}>
-											<TableCell className="font-medium">83kdak2</TableCell>
-											<TableCell>{product.name}</TableCell>
-											<TableCell>R$ {product.price.toFixed(2)}</TableCell>
-											<TableCell className="text-center">{product.quantity}</TableCell>
-										</TableRow>
-									))
+								filteredProducts.map((product, i) => (
+									<TableRow key={i}>
+										<TableCell className="font-medium">{i + 1}</TableCell>
+										<TableCell>{product.name}</TableCell>
+										<TableCell>R$ {product.price.toFixed(2)}</TableCell>
+										<TableCell className="text-center">{product.quantity}</TableCell>
+									</TableRow>
+								))
 							}	
 						</TableBody>
 					</Table>
