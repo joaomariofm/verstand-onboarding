@@ -1,5 +1,5 @@
 # Use the official Node.js image.
-FROM node:18-alpine
+FROM node:22-bookworm
 
 # Create and change to the app directory.
 WORKDIR /app
@@ -14,5 +14,6 @@ COPY . .
 # Expose the port the app runs on.
 EXPOSE 3000
 
-# Run the web service on container startup.
-CMD [ "npm", "start" ]
+
+# Run the migrations and web service on container startup.
+CMD ["/bin/bash", "-c", "npm run migrate;npm start"]
