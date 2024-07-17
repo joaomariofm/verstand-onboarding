@@ -50,7 +50,7 @@ function AddProductDialog(props: Props) {
 		props.onSubmitCallback(values)
 		form.reset()
 		setIsOpen(false)
-  }
+  	}
 	
 	return (
 		<>
