@@ -4,7 +4,6 @@ import MovieService from '@/services/movie.service';
 import { useQuery } from '@tanstack/react-query';
 
 export default function MoviesPage () {
-	
 	const { data, isLoading } = useQuery({queryKey: ['movies'], queryFn: MovieService.getMovies});
 
 	if (isLoading) {
