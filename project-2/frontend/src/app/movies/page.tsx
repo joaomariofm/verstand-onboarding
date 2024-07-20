@@ -2,7 +2,7 @@
 
 import "./index.css";
 import MovieService from '@/services/movie.service';
-import { MovieCard } from '@/components/movie-card';
+import MovieCard from '@/components/movie-card';
 import { useQuery } from '@tanstack/react-query';
 
 export default function MoviesPage () {

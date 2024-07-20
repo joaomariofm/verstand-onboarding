@@ -1,7 +1,7 @@
 import Movie from "@/models/movie";
 import { Card } from '@/components/ui/card';
 
-export function MovieCard({ movie }: {movie: Movie}) {
+export default function MovieCard({ movie }: {movie: Movie}) {
 	return(
 		<Card className="flex max-h-64 overflow-hidden">
 			<div>
