@@ -7,7 +7,7 @@ export class MovieController {
   constructor(private readonly movieService: MovieService) {}
 
   @Get("list")
- 	getMovies(): Promise<Movie[]> {
+ 	async getMovies(): Promise<Movie[]> {
 		return this.movieService.movies()
 	}
 }
