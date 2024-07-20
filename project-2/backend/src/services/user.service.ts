@@ -10,6 +10,10 @@ export class UserService {
 			where: {
 				email,
 				password
+			},
+			select: {	
+				id: true,
+				email: true,
 			}
 		});
 
