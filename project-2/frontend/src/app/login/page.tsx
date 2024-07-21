@@ -8,7 +8,7 @@ import { login } from "./actions"
 import { useFormState } from "react-dom"
 
 export default function LoginPage() {
-	const [errorMessage, dispatch] = useFormState(login, undefined);
+	const [message, dispatch] = useFormState(login, undefined);
 
 	return (
 		<div className="container w-screen h-screen flex items-center justify-center py-4">
@@ -18,7 +18,7 @@ export default function LoginPage() {
 				</CardHeader>
 				<CardContent className="flex flex-col gap-4">
 					<div className="w-full flex justify-center text-red-700">
-						{errorMessage && errorMessage}
+						{message && message}
 					</div>
 					<form className="flex flex-col gap-5" action={dispatch}>
 						<div className="flex flex-col gap-3">
