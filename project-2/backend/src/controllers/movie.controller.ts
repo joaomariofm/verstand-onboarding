@@ -1,13 +1,14 @@
 import { Controller, Get } from '@nestjs/common';
 import { MovieService } from 'src/services/movie.service';
-import { Movie } from '@prisma/client';
+import { GetMoviesResponse } from 'src/types';
 
 @Controller("movies")
 export class MovieController {
+
   constructor(private readonly movieService: MovieService) {}
 
   @Get("list")
- 	async getMovies(): Promise<Readonly<{ status: number; message?: string; movies?: Movie[]; }>> {
+ 	async getMovies(): Promise<GetMoviesResponse> {
 		const movies = await this.movieService.movies();
 
 		return {
