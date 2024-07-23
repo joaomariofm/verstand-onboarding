@@ -30,7 +30,7 @@ export class UserController {
 
 			return {
 				status: HttpStatus.OK,
-				message: "User logged in successfully",
+				message: "OK",
 				user: user
 			}
 		} catch (error) {

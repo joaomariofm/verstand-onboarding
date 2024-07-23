@@ -6,9 +6,20 @@ import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
 import { login } from "./actions"
 import { useFormState } from "react-dom"
+import { useEffect, useState } from "react"
+import { redirect } from "next/navigation"
 
 export default function LoginPage() {
-	const [message, dispatch] = useFormState(login, undefined);
+	const [state, dispatch] = useFormState(login, undefined);
+	const [errorMessage, seterrorMessage] = useState("");
+
+	useEffect(() => {
+		if (state === "OK") {
+			return redirect("/movies")
+		}
+
+		seterrorMessage(state)
+	}, [state]);
 
 	return (
 		<div className="container w-screen h-screen flex items-center justify-center py-4">
@@ -18,7 +29,7 @@ export default function LoginPage() {
 				</CardHeader>
 				<CardContent className="flex flex-col gap-4">
 					<div className="w-full flex justify-center text-red-700">
-						{message && message}
+						{errorMessage && errorMessage}
 					</div>
 					<form className="flex flex-col gap-5" action={dispatch}>
 						<div className="flex flex-col gap-3">

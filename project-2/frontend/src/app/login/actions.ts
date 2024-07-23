@@ -8,7 +8,8 @@ export async function login(_currentState: unknown, formData: FormData): Promise
 	const password = formData.get('password') as string;
 
 	try {
-		await UserService.login(email, password);
+		const response: any = await UserService.login(email, password);
+		return response.message;
 	} catch (error: any) {
 		return error.message;
 	}
