@@ -7,7 +7,13 @@ export class MovieController {
   constructor(private readonly movieService: MovieService) {}
 
   @Get("list")
- 	async getMovies(): Promise<Movie[]> {
-		return this.movieService.movies()
+ 	async getMovies(): Promise<Readonly<{ status: number; message?: string; movies?: Movie[]; }>> {
+		const movies = await this.movieService.movies();
+
+		return {
+			status: 200,
+			message: "Movies retrieved successfully",
+			movies: movies
+		}
 	}
 }

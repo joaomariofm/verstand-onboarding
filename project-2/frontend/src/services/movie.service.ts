@@ -6,10 +6,12 @@ export default class MovieService {
 
 		const parsedResponse = await response.json();
 
+		console.log(parsedResponse);
+
 		if (parsedResponse.status !== 200) {
 			throw new Error('Something went wrong');
 		}
 
-		return parsedResponse;
+		return parsedResponse.movies;
 	}
 }
