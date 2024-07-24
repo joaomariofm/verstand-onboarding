@@ -18,6 +18,9 @@ export class UserService {
 	}
 
 	async createUser({ name, email, password, }) {
+		
+		// TODO: check if e-mail is already in use
+
 		const user = await this.prisma.user.create({
 			data: { name, email, password }
 		});

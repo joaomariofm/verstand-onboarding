@@ -23,4 +23,16 @@ export default class UserService {
 
 		return parsedResponse;
 	}
+
+	static async register(name: string, email: string, password: string): Promise<any>{
+		const response = await fetch('http://localhost:3001/user/register', {
+			method: 'POST',
+			headers: {'Content-Type': 'application/json'},
+			body: JSON.stringify({name, email, password})
+		});
+
+		const parsedResponse = await response.json();
+
+		return parsedResponse;
+	}
 }

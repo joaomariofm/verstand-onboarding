@@ -22,7 +22,7 @@ export class UserController {
 		}
 	}
 
-	@Post("create")
+	@Post("register")
 	async createUser(@Req() request: CreateUserRequest): Promise<ControllerResponse>{
 		try {
 			const user = await this.userService.createUser(request.body);
