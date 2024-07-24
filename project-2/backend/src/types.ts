@@ -1,9 +1,9 @@
 import { Request } from 'express';
-import { Movie } from '@prisma/client';
 
 export interface ControllerResponse {
 	status: number;
 	message?: string;
+	data?: any
 }
 
 export interface GetUserRequest extends Request {
@@ -13,13 +13,10 @@ export interface GetUserRequest extends Request {
 	}
 }
 
-export interface GetUserResponse extends ControllerResponse {
-	user?: {
-		id: string,
-		email: string
-	};
-}
-
-export interface GetMoviesResponse extends ControllerResponse {
-	movies?: Movie[];
+export interface CreateUserRequest extends Request {
+	body: {
+		email: string;
+		password: string;
+		name: string;
+	}
 }

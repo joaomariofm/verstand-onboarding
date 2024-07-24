@@ -1,7 +1,11 @@
 import { Controller, Req, Post } from '@nestjs/common';
 import { HttpStatus } from '@nestjs/common';
 import { UserService } from 'src/services/user.service';
-import { GetUserRequest, GetUserResponse } from 'src/types';
+import {
+	ControllerResponse,
+	GetUserRequest,
+	CreateUserRequest,
+} from 'src/types';
 
 @Controller("user")
 export class UserController {
@@ -9,23 +13,22 @@ export class UserController {
   constructor(private userService: UserService) {}
 
   @Post("login")
- 	async getUser(@Req() request: GetUserRequest): Promise<GetUserResponse> {
+ 	async getUser(@Req() request: GetUserRequest): Promise<ControllerResponse> {
 		try {
-			const user = await this.userService.login({
-				email: request.body.email,
-				password: request.body.password
-			});
-
-			return {
-				status: HttpStatus.OK,
-				message: "OK",
-				user: user
-			}
+			const user = await this.userService.login(request.body);
+			return { status: HttpStatus.OK, message: "OK", data: { ...user } }
 		} catch (error) {
-			return {
-				status: HttpStatus.UNAUTHORIZED,
-				message: error.message
-			}
+			return { status: HttpStatus.UNAUTHORIZED, message: error.message }
+		}
+	}
+
+	@Post("create")
+	async createUser(@Req() request: CreateUserRequest): Promise<ControllerResponse>{
+		try {
+			const user = await this.userService.createUser(request.body);
+			return { status: HttpStatus.CREATED, message: "User created", data: { ...user } }
+		} catch (error) {
+			return { status: HttpStatus.BAD_REQUEST, message: error.message }
 		}
 	}
 }

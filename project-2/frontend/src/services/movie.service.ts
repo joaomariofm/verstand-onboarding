@@ -10,6 +10,6 @@ export default class MovieService {
 			throw new Error('Something went wrong');
 		}
 
-		return parsedResponse.movies;
+		return parsedResponse.data;
 	}
 }
