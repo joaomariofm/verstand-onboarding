@@ -1,5 +1,3 @@
-import { cookies } from 'next/headers';
-import User from "@/models/user";
 import AuthService from "./auth.service";
 
 export default class UserService {
@@ -16,10 +14,7 @@ export default class UserService {
 			throw new Error('Invalid credentials');
 		}
 
-		const expires = new Date(Date.now() + AuthService.EXPIRING_TIME);
-		const session = await AuthService.encrypt(parsedResponse.user as User);
-
-		cookies().set("session", session, { expires, httpOnly: true });
+		AuthService.createSession(parsedResponse.data);
 
 		return parsedResponse;
 	}
@@ -32,6 +27,8 @@ export default class UserService {
 		});
 
 		const parsedResponse = await response.json();
+
+		AuthService.createSession(parsedResponse.data);
 
 		return parsedResponse;
 	}
