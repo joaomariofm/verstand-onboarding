@@ -9,7 +9,11 @@ export async function middleware(request: NextRequest) {
 		return NextResponse.next();
 	}
 
-	if (!request.nextUrl.pathname.startsWith("/login") && !session) {
+	if (
+		!request.nextUrl.pathname.startsWith("/login") &&
+		!request.nextUrl.pathname.startsWith("/register") &&
+		!session
+	) {
 		return NextResponse.redirect(new URL("/login", request.url));
 	}
 }
