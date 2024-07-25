@@ -26,7 +26,7 @@ export class UserController {
 	async createUser(@Req() request: CreateUserRequest): Promise<ControllerResponse>{
 		try {
 			const user = await this.userService.createUser(request.body);
-			return { status: HttpStatus.CREATED, message: "User created", data: { ...user } }
+			return { status: HttpStatus.CREATED, message: "OK", data: { ...user } }
 		} catch (error) {
 			return { status: HttpStatus.BAD_REQUEST, message: error.message }
 		}

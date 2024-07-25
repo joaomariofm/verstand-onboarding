@@ -6,9 +6,17 @@ import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
 import { register } from "./actions"
 import { useFormState } from "react-dom"
+import { useEffect } from "react"
+import { redirect } from "next/navigation"
 
 export default function LoginPage() {
-	const [_state, dispatch] = useFormState(register, undefined);
+	const [state, dispatch] = useFormState(register, undefined);
+
+	useEffect(() => {
+		if (state === "OK") {
+			return redirect("/movies")
+		}
+	}, [state]);
 
 	return (
 		<div className="container w-screen h-screen flex items-center justify-center py-4">
