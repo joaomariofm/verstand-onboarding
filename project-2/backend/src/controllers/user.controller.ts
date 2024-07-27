@@ -16,7 +16,7 @@ export class UserController {
  	async getUser(@Req() request: GetUserRequest): Promise<ControllerResponse> {
 		try {
 			const user = await this.userService.login(request.body);
-			return { status: HttpStatus.OK, message: "OK", data: { ...user } }
+			return { status: HttpStatus.OK, data: { ...user } }
 		} catch (error) {
 			return { status: HttpStatus.UNAUTHORIZED, message: error.message }
 		}
@@ -26,7 +26,7 @@ export class UserController {
 	async createUser(@Req() request: CreateUserRequest): Promise<ControllerResponse>{
 		try {
 			const user = await this.userService.createUser(request.body);
-			return { status: HttpStatus.CREATED, message: "OK", data: { ...user } }
+			return { status: HttpStatus.CREATED, data: { ...user } }
 		} catch (error) {
 			return { status: HttpStatus.BAD_REQUEST, message: error.message }
 		}
