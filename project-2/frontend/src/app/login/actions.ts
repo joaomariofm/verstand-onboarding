@@ -1,17 +1,13 @@
 'use server'
 
+import { ActionResponse } from "@/types";
 import UserService from "@/services/user.service";
 
-export async function login(_currentState: unknown, formData: FormData): Promise<any> {
+export async function login(_currentState: unknown, formData: FormData): Promise<ActionResponse>{
 
 	const email = formData.get('email') as string;
 	const password = formData.get('password') as string;
 
-	try {
-		const response: any = await UserService.login(email, password);
-		return response.message;
-	} catch (error: any) {
-		return error.message;
-	}
+	return await UserService.login(email, password);
 }
 

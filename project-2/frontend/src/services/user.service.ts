@@ -11,10 +11,10 @@ export default class UserService {
 		const parsedResponse = await response.json();
 		
 		if (parsedResponse.status !== 200) {
-			throw new Error('Invalid credentials');
+			return parsedResponse;
 		}
 
-		AuthService.createSession(parsedResponse.data);
+		await AuthService.createSession(parsedResponse.data);
 
 		return parsedResponse;
 	}
