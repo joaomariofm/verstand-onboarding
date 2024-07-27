@@ -28,7 +28,7 @@ export default class UserService {
 
 		const parsedResponse = await response.json();
 
-		AuthService.createSession(parsedResponse.data);
+		await AuthService.createSession(parsedResponse.data);
 
 		return parsedResponse;
 	}

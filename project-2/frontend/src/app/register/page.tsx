@@ -10,13 +10,11 @@ import { useEffect } from "react"
 import { redirect } from "next/navigation"
 
 export default function LoginPage() {
-	const [state, dispatch] = useFormState(register, undefined);
+	const [response, dispatch] = useFormState(register, undefined);
 
 	useEffect(() => {
-		if (state === "OK") {
-			return redirect("/movies")
-		}
-	}, [state]);
+		if (response?.status === 201) return redirect("/movies")
+	}, [response]);
 
 	return (
 		<div className="container w-screen h-screen flex items-center justify-center py-4">
